@@ -1,6 +1,16 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
+import { useRegisterSW } from "virtual:pwa-register/vue";
+import { onMounted } from "vue";
+const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW();
+const close = async () => {
+  offlineReady.value = false;
+  needRefresh.value = false;
+};
+onMounted(async () => {
+  await updateServiceWorker();
+})
 </script>
 
 <template>
