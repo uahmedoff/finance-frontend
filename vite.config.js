@@ -16,7 +16,7 @@ export default defineConfig({
       includeAssets: ["/favicon.ico"],
       strategies: "injectManifest",
       manifest: {
-        name: "Cambridge Finance App",
+        name: "Finance App",
         short_name: "Finance-app",
         theme_color: "#ffffff",
         start_url: "/",
