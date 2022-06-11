@@ -1,14 +1,20 @@
 <script setup>
 import { useCounterStore } from '@/stores/counter'
+import { useAuthStore } from '@/stores/auth'
 import TheWelcome from '@/components/TheWelcome.vue'
 
 const storeCounter = useCounterStore()
+const storeAuth = useAuthStore()
 
 async function myFunc(num){
   // await alert(num);
   setTimeout(() => {
     alert(num)
   },2000)
+}
+
+async function logout(){
+  await storeAuth.logout()
 }
 </script>
 
@@ -21,6 +27,13 @@ async function myFunc(num){
     <button @click="$i18n.locale = 'en'">En</button>
 
     <button @click="myFunc(525)">Alert</button>
+    <button @click="logout">Logout</button>
+
+    <b-button v-b-modal.modal-1>Launch demo modal</b-button>
+
+  <b-modal id="modal-1" title="BootstrapVue">
+    <p class="my-4">Hello from modal!</p>
+  </b-modal>
 
     <h3>{{$t('hello')}}</h3>
 

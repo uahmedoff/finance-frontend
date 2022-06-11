@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import {setItem,getItem,removeItem} from '@/helpers/localStorage'
 import router from '@/router'
 import authService from '@/services/auth'
+import { i18n } from '@/utils/i18n';
 
 export const useAuthStore = defineStore({
     id: 'auth',
@@ -24,6 +25,7 @@ export const useAuthStore = defineStore({
                 const response = (await authService.login(credentials)).data;
                 setItem('user',response.data);
                 setItem('accessToken',response.meta.token);
+                i18n.locale = response.data.lang
                 this.isSubmitting = false;
                 this.currentUser = response.data;
                 this.isLoggedIn = true;
@@ -41,6 +43,7 @@ export const useAuthStore = defineStore({
                 this.isLoading = false;
                 this.currentUser = response.data;
                 this.isLoggedIn = true;
+                i18n.locale = response.data.lang
                 router.push(this.returnUrl || '/')
             } 
             catch (error) {
@@ -50,6 +53,14 @@ export const useAuthStore = defineStore({
                 removeItem('user');
                 removeItem('accessToken');
             }
+        },
+        logout(){
+            setItem('accessToken','');
+            this.currentUser = null
+            this.isLoggedIn = false
+            removeItem('user');
+            removeItem('accessToken');
+            router.push('/auth/login');
         },
     }
 })
