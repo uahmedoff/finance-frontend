@@ -1,3 +1,17 @@
 {
-    "hello": "Hello"
+    "finance": "Finance",
+    "menu": "Menu",
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "roles": "Roles",
+    "currencies": "Currencies",
+    "firms": "Firms",
+    "wallets": "Wallets",
+    "categories": "Categories",
+    "payment-methods": "Payment methods",
+    "transactions": "Transactions",
+    "exchange-rates": "Exchange rates",
+    "news-feed": "Activity Feed",
+    "settings": "Settings",
+    "logout": "Log out"
 }

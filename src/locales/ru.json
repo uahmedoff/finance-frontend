@@ -1,3 +1,17 @@
 {
-    "hello": "Привет"
+    "finance": "Финансы",
+    "menu": "Меню",
+    "dashboard": "Парель управления",
+    "users": "Пользователи",
+    "roles": "Роли",
+    "currencies": "Валюты",
+    "firms": "Фирмы",
+    "wallets": "Кошельки",
+    "categories": "Категории",
+    "payment-methods": "Методы оплаты",
+    "transactions": "Транзакции",
+    "exchange-rates": "Обменный курс",
+    "news-feed": "Лента активности",
+    "settings": "Настройки",
+    "logout": "Выйти"
 }

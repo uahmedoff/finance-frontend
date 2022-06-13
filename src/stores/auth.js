@@ -15,7 +15,14 @@ export const useAuthStore = defineStore({
         returnUrl: null
     }),
     getters: {
-        isAnonymous: (state) => state.isLoggedIn === false
+        isAnonymous: (state) => state.isLoggedIn === false,
+        isCEO: (state) => {
+            if(state.currentUser)
+                return state.currentUser.role == "CEO";
+            if(getItem('user'))
+                return getItem('user').role == "CEO";   
+            return null;
+        }
     },
     actions: {
         async login(credentials){
@@ -53,6 +60,9 @@ export const useAuthStore = defineStore({
                 removeItem('user');
                 removeItem('accessToken');
             }
+        },
+        can(permission){
+            return this.currentUser.permissions.indexOf(permission) !== -1;
         },
         logout(){
             setItem('accessToken','');

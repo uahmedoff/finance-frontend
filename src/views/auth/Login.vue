@@ -1,16 +1,10 @@
 <script setup>
-    import {onMounted, onUnmounted, ref} from "vue"
+    import {ref} from "vue"
     import { useAuthStore } from '@/stores/auth'
     const authStore = useAuthStore()
     let credentials = ref({
         phone: '',
         password: ''
-    })
-    onMounted(() => {
-        document.body.classList.add('text-center')
-    })
-    onUnmounted(() => {
-        document.body.classList.remove('text-center')
     })
 </script>
 
@@ -46,15 +40,23 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
             </div> -->
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button 
+                v-if="authStore.isSubmitting"
+                class="w-100 btn btn-lg btn-primary disabled" 
+                type="button"
+            >
+                <b-spinner variant="light"></b-spinner>
+            </button>
+            <button 
+                v-else
+                class="w-100 btn btn-lg btn-primary" 
+                type="submit">Sign in</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
         </form>
     </main>
 </template>
 
-<style>
-    @import url('https://getbootstrap.com/docs/5.1/examples/sign-in/signin.css');
-
+<style scoped>
     .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;

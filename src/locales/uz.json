@@ -1,3 +1,17 @@
 {
-    "hello": "Salom"
+    "finance": "Moliya",
+    "menu": "Menyu",
+    "dashboard": "Boshqaruv paneli",
+    "users": "Foydalanuvchilar",
+    "roles": "Rollar",
+    "currencies": "Valyutalar",
+    "firms": "Firmalar",
+    "wallets": "Hamyonlar",
+    "categories": "Kategoriyalar",
+    "payment-methods": "To'lov usullari",
+    "transactions": "Tranzaksiyalar",
+    "exchange-rates": "Valyuta kurslari",
+    "news-feed": "Faolliklar tasmasi",
+    "settings": "Sozlamalar",
+    "logout": "Chiqish"
 }
