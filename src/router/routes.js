@@ -27,23 +27,40 @@ const routes = [
             component: () =>
               import("@/views/Dashboard.vue"),
           },
+          {
+            path: "users",
+            name: "User",
+            component: () =>
+              import("@/views/user/All.vue"),
+            children: [
+              {
+                path: "add",
+                name: "CreateUser",
+                component: () =>
+                  import("@/views/user/Add.vue"),
+              },
+              {
+                path: ":user_id/edit",
+                name: "EditUser",
+                component: () =>
+                  import("@/views/user/Edit.vue"),
+              },
+            ]  
+          },
+          {
+            path: "roles",
+            name: "Role",
+            component: () =>
+              import("@/views/role/All.vue"),
+          },
+          {
+            path: "roles/:role_id/permissions",
+            name: "RolePermissions",
+            component: () =>
+              import("@/views/role/AttachPermissions.vue"),
+          },
         ]
     },
-    
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: HomeView
-    // },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
-
 
 ]
 

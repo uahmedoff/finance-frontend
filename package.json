@@ -17,7 +17,8 @@
     "sass": "^1.52.3",
     "vue": "^3.2.36",
     "vue-i18n": "^9.1.10",
-    "vue-router": "^4.0.15"
+    "vue-router": "^4.0.15",
+    "vuejs-paginate-next": "^1.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",

@@ -1,18 +1,27 @@
 <script setup>
     import { useAuthStore } from "@/stores/auth"
+    import { onMounted } from "vue"
     import $ from "jQuery"
     const storeAuth = useAuthStore()
     function logout(){
         $(".offcanvas-backdrop").remove();
         storeAuth.logout();
     }
+    
+    onMounted(() => {
+        $(".nav-link").click(function(){
+            $(".offcanvas-backdrop").remove()
+            $("#offcanvasExample").removeClass("show")
+            $("body").removeAttr("style")
+        });
+    });
 </script>
 
 <template>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">{{ $t('finance') }}
+            <router-link to="/" class="navbar-brand" href="#">{{ $t('finance') }}
                 <button 
                     id="hmbrgrButton"
                     class="btn"
@@ -23,7 +32,7 @@
                 >
                     <span class="navbar-toggler-icon"></span>
                 </button>  
-            </a>
+            </router-link>
         </div>
     </nav>
     
@@ -35,23 +44,23 @@
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <router-link to="/" class="nav-link" aria-current="page">
+                <li>
+                    <router-link to="/" class="nav-link link-dark" aria-current="page">
                         <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
                         {{ $t('dashboard') }}
                     </router-link>
                 </li>
                 <li v-if="storeAuth.can('See users')">
-                    <a href="#" class="nav-link link-dark">
+                    <router-link to="/users" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
                         {{ $t('users') }}
-                    </a>
+                    </router-link>
                 </li>
                 <li v-if="storeAuth.can('See roles')">
-                    <a href="#" class="nav-link link-dark">
+                    <router-link to="/roles" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                         {{ $t('roles') }}
-                    </a>
+                    </router-link>
                 </li>
                 <li v-if="storeAuth.can('See currencies')">
                     <a href="#" class="nav-link link-dark">
@@ -117,7 +126,7 @@
         </div>
     </div>
 
-    <div class="container" style="overflow-y:auto">
+    <div class="container pt-5" style="overflow-y:auto;">
         <router-view></router-view> 
     </div>
 </template>

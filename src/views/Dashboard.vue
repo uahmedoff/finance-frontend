@@ -11,7 +11,7 @@ const storeAuth = useAuthStore()
       v-if="storeAuth.can('See users')"
       class="col-md-4 mt-2"
     >
-      <router-link to="/" tag="div" class="card">
+      <router-link to="/users" tag="div" class="card">
         <div class="card-body">
           {{$t('users')}}
         </div>
@@ -21,7 +21,7 @@ const storeAuth = useAuthStore()
       v-if="storeAuth.can('See roles')"  
       class="col-md-4 mt-2"
     >
-      <router-link to="/" tag="div" class="card">
+      <router-link to="/roles" tag="div" class="card">
         <div class="card-body">
           {{$t('roles')}}
         </div>
