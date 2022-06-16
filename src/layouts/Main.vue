@@ -1,7 +1,7 @@
 <script setup>
     import { useAuthStore } from "@/stores/auth"
     import { onMounted } from "vue"
-    import $ from "jQuery"
+    import $ from "jquery"
     const storeAuth = useAuthStore()
     function logout(){
         $(".offcanvas-backdrop").remove();
@@ -21,7 +21,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
-            <router-link to="/" class="navbar-brand" href="#">{{ $t('finance') }}
+            <a class="navbar-brand" href="#">{{ $t('finance') }}
                 <button 
                     id="hmbrgrButton"
                     class="btn"
@@ -32,7 +32,7 @@
                 >
                     <span class="navbar-toggler-icon"></span>
                 </button>  
-            </router-link>
+            </a>
         </div>
     </nav>
     
@@ -62,17 +62,17 @@
                         {{ $t('roles') }}
                     </router-link>
                 </li>
-                <li v-if="storeAuth.can('See currencies')">
-                    <a href="#" class="nav-link link-dark">
+                <!-- <li v-if="storeAuth.can('See currencies')">
+                    <router-link to="/" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                         {{ $t('currencies') }}
-                    </a>
-                </li>
+                    </router-link>
+                </li> -->
                 <li v-if="storeAuth.can('See firms')">
-                    <a href="#" class="nav-link link-dark">
+                    <router-link to="/firms" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                         {{ $t('firms') }}
-                    </a>
+                    </router-link>
                 </li>
                 <li v-if="storeAuth.can('See wallets')">
                     <a href="#" class="nav-link link-dark">

@@ -5,10 +5,6 @@
 
 <template>
     
-    <!-- <span v-if="userStore.validationErrors">
-        {{ userStore.validationErrors }}
-    </span> -->
-
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="text" class="form-control" id="name" v-model="userStore.currentUser.name">

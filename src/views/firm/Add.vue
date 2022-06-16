@@ -1,22 +1,22 @@
 <script setup>
-    import Form from '@/components/UserForm.vue'
+    import Form from '@/components/FirmForm.vue'
     import router from '@/router'
-    import { useUserStore } from'@/stores/user'
-    const userStore = useUserStore()
+    import { useFirmStore } from'@/stores/firm'
+    const firmStore = useFirmStore()
     async function submitForm(){
-        await userStore.addUser()
-        if(!userStore.validationErrors){
-            await userStore.getUsers({
+        await firmStore.addFirm()
+        if(!firmStore.validationErrors){
+            await firmStore.getFirms({
                 order: 'desc'
             })
-            router.push('/users')
+            router.push('/firms')
         }
     }
 </script>
 
 <template>
     <router-link 
-        to="/users" 
+        to="/firms" 
         class="btn btn-danger btn-sm"
         style="float:right"
     >x</router-link>

@@ -59,6 +59,26 @@ const routes = [
             component: () =>
               import("@/views/role/AttachPermissions.vue"),
           },
+          {
+            path: "firms",
+            name: "Firm",
+            component: () =>
+              import("@/views/firm/All.vue"),
+            children: [
+              {
+                path: "add",
+                name: "AddFirm",
+                component: () =>
+                  import("@/views/firm/Add.vue"),
+              },
+              {
+                path: ":firm_id/edit",
+                name: "EditFirm",
+                component: () =>
+                  import("@/views/firm/Edit.vue"),
+              },
+            ]  
+          },
         ]
     },
 

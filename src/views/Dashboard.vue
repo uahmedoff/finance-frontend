@@ -27,7 +27,7 @@ const storeAuth = useAuthStore()
         </div>
       </router-link>
     </div>
-    <div 
+    <!-- <div 
       v-if="storeAuth.can('See currencies')"
       class="col-md-4 mt-2"
     >
@@ -36,12 +36,12 @@ const storeAuth = useAuthStore()
           {{$t('currencies')}}
         </div>
       </router-link>
-    </div>
+    </div> -->
     <div 
       v-if="storeAuth.can('See firms')"
       class="col-md-4 mt-2"
     >
-      <router-link to="/" tag="div" class="card">
+      <router-link to="/firms" tag="div" class="card">
         <div class="card-body">
           {{$t('firms')}}
         </div>

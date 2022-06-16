@@ -1,37 +1,33 @@
 <script setup>
-    import Form from '@/components/UserForm.vue'
+    import Form from '@/components/FirmForm.vue'
     import router from '@/router'
-    import { useUserStore } from'@/stores/user'
+    import { useFirmStore } from'@/stores/firm'
     import { useRoute } from 'vue-router'
     import { onUnmounted } from 'vue'
 
-    const userStore = useUserStore()
+    const firmStore = useFirmStore()
     const route = useRoute()
-    userStore.getUser(route.params.user_id)
+    firmStore.getFirm(route.params.firm_id)
     async function submitForm(){
-        await userStore.updateUser()
-        if(!userStore.validationErrors){
-            await userStore.getUsers({
-                order: "DESC"
+        await firmStore.updateFirm()
+        if(!firmStore.validationErrors){
+            await firmStore.getFirms({
+                order: 'desc'
             })
-            router.push('/users')
+            router.push('/firms')
         }
     }
     onUnmounted(() => {
-        userStore.currentUser = {
+        firmStore.currentFirm = {
             id: null,
             name: null,
-            phone: null,
-            password: null,
-            lang: null,
-            role: null
         }
     })
 </script>
 
 <template>
     <router-link 
-        to="/users" 
+        to="/firms" 
         class="btn btn-danger btn-sm"
         style="float:right"
     >x</router-link>
