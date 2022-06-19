@@ -1,7 +1,7 @@
 <script setup>
     import { useAuthStore } from "@/stores/auth"
     import { onMounted } from "vue"
-    import $ from "jquery"
+    import $ from 'jquery'
     const storeAuth = useAuthStore()
     function logout(){
         $(".offcanvas-backdrop").remove();
@@ -75,10 +75,10 @@
                     </router-link>
                 </li>
                 <li v-if="storeAuth.can('See wallets')">
-                    <a href="#" class="nav-link link-dark">
+                    <router-link to="/wallets" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                         {{ $t('wallets') }}
-                    </a>
+                    </router-link>
                 </li>
                 <li v-if="storeAuth.can('See categories')">
                     <a href="#" class="nav-link link-dark">

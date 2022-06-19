@@ -51,7 +51,7 @@ const storeAuth = useAuthStore()
       v-if="storeAuth.can('See wallets')"
       class="col-md-4 mt-2"
     >
-      <router-link to="/" tag="div" class="card">
+      <router-link to="/wallets" tag="div" class="card">
         <div class="card-body">
           {{$t('wallets')}}
         </div>

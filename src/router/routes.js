@@ -79,6 +79,30 @@ const routes = [
               },
             ]  
           },
+          {
+            path: "wallets",
+            name: "Wallet",
+            component: () =>
+              import("@/views/wallet/All.vue"),
+          },    
+          {
+            path: "wallets/add",
+            name: "AddWallet",
+            component: () =>
+              import("@/views/wallet/Add.vue"),
+          },    
+          {
+            path: "wallets/:wallet_id",
+            name: "SeeWallet",
+            component: () =>
+              import("@/views/wallet/One.vue"),
+          },
+          {
+            path: "wallets/:wallet_id/edit",
+            name: "EditWallet",
+            component: () =>
+              import("@/views/wallet/Edit.vue"),
+          },
         ]
     },
 

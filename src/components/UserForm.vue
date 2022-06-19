@@ -36,6 +36,16 @@
     <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" id="password" v-model="userStore.currentUser.password">
+        <span 
+            v-if="
+            userStore.validationErrors && 
+            userStore.validationErrors.password && 
+            userStore.validationErrors.password.length
+            "
+            class="text-red"
+        >
+            {{ userStore.validationErrors.password[0] }}
+        </span>
     </div>
     <div class="mb-3">
         <label for="lang" class="form-label">Language</label>

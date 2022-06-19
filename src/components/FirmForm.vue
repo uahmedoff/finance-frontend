@@ -1,5 +1,5 @@
 <script setup>
-    import { useFirmStore } from'@/stores/firm'
+    import { useFirmStore } from '@/stores/firm'
     const firmStore = useFirmStore()
 </script>
 
