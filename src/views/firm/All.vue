@@ -18,7 +18,9 @@
     async function deleteFirm(firm_id){
         if(confirm("Are you sure?")){
             await firmStore.deleteFirm(firm_id)
-            await getFirms()
+            await getFirms({
+                order: 'desc'
+            })
         }
     }
     getFirms()
@@ -57,6 +59,7 @@
                         </td>
                         <td>{{firm.name}}</td>
                         <td>
+                            <router-link :to="'/firms/'+firm.id+'/transactions/add'" class="btn btn-warning btn-sm">Make expence</router-link> &nbsp;
                             <router-link :to="'/firms/'+firm.id+'/edit'" class="btn btn-primary btn-sm">Edit</router-link> &nbsp;
                             <a href="#" @click.prevent="deleteFirm(firm.id)" class="btn btn-danger btn-sm">Delete</a>
                         </td>

@@ -1,5 +1,4 @@
 const routes = [
-    
     {
       path: '/auth',
       name: 'Auth',
@@ -12,7 +11,6 @@ const routes = [
         }
       ]
     },
-
     {
         path: "/",
         name: "Main",
@@ -80,6 +78,12 @@ const routes = [
             ]  
           },
           {
+            path: "firms/:firm_id/transactions/add",
+            name: "AddTransactionToFirm",
+            component: () =>
+              import("@/views/transaction/AddFirmTransaction.vue"),
+          },
+          {
             path: "wallets",
             name: "Wallet",
             component: () =>
@@ -102,6 +106,24 @@ const routes = [
             name: "EditWallet",
             component: () =>
               import("@/views/wallet/Edit.vue"),
+          },
+          {
+            path: "wallets/:wallet_id/transactions/add",
+            name: "AddTransaction",
+            component: () =>
+              import("@/views/transaction/Add.vue"),
+          },
+          {
+            path: "wallets/:wallet_id/add",
+            name: "AddChildWallet",
+            component: () =>
+              import("@/views/wallet/AddChild.vue"),
+          },
+          {
+            path: "activity-feed",
+            name: "ActivityFeed",
+            component: () =>
+              import("@/views/activity/All.vue"),
           },
         ]
     },

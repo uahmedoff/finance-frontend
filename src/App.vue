@@ -2,6 +2,9 @@
 import { useRegisterSW } from "virtual:pwa-register/vue";
 import { onMounted } from "vue";
 import { useAuthStore } from '@/stores/auth'
+import { useRoute } from 'vue-router'
+const route = useRoute()
+
 const authStore = useAuthStore();
 const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW();
 const close = async () => {
@@ -16,7 +19,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <router-view />
+  <router-view :key="route.fullPath" />
 </template>
 
 <style>

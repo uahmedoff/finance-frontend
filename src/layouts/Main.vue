@@ -80,7 +80,7 @@
                         {{ $t('wallets') }}
                     </router-link>
                 </li>
-                <li v-if="storeAuth.can('See categories')">
+                <!-- <li v-if="storeAuth.can('See categories')">
                     <a href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                         {{ $t('categories') }}
@@ -103,12 +103,12 @@
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                         {{ $t('exchange-rates') }}
                     </a>
-                </li>
+                </li> -->
                 <li v-if="storeAuth.can('See history')">
-                    <a href="#" class="nav-link link-dark">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                    <router-link to="/activity-feed" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                         {{ $t('news-feed') }}
-                    </a>
+                    </router-link>
                 </li>
             </ul>
             <hr>

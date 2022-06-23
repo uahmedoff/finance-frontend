@@ -15,6 +15,8 @@ export const useWalletStore = defineStore({
             currency_id: null,
             firm_id: null,
             parent_id: null,
+            balance: null,
+            monthly_cash_flow: null,
             categories: [
                 {
                     name: null,
@@ -42,6 +44,7 @@ export const useWalletStore = defineStore({
                     }
                 })).data;
                 this.wallets = response.data;
+                this.pagination = response.meta;
                 this.isLoading =false
             }
             catch(error){
@@ -51,6 +54,7 @@ export const useWalletStore = defineStore({
         },
 
         async addWallet(){
+            this.validationErrors = null;
             this.isSubmitting = true
             try{
                 await http.post(`wallets`,this.currentWallet)
@@ -95,6 +99,7 @@ export const useWalletStore = defineStore({
         },
 
         async updateWallet(){
+            this.validationErrors = null;
             this.isLoading = true;
             try{
                 const response = (await http.put(`wallets/${this.currentWallet.id}`,this.currentWallet));

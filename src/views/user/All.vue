@@ -2,8 +2,8 @@
     import { ref } from "vue" 
     import { useUserStore } from "@/stores/user"
     import Paginate from "vuejs-paginate-next";
-    import { useItemsNumber } from "@/composables/ItemsNumber"
     import Form from '@/components/UserForm.vue'
+    import { useItemsNumber } from "@/composables/ItemsNumber"
 
     const { correct_pages } = useItemsNumber()
     const filter_name = ref(null);

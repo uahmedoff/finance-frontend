@@ -48,7 +48,7 @@
         <span 
             v-if="
             walletStore.validationErrors && 
-            walletStore.validationErrors.phone && 
+            walletStore.validationErrors.project_api_url && 
             walletStore.validationErrors.project_api_url.length
             "
             class="text-red"
@@ -80,6 +80,7 @@
     <div class="mb-3">
         <label for="firm" class="form-label">Firm</label>
         <select id="firm" v-model="walletStore.currentWallet.firm_id" class="form-control">
+            <option></option>
             <option v-for="firm,index in firmStore.firms" :value="firm.id" :key="'firm'+index">{{ firm.name }}</option>
         </select>
         <span 
@@ -99,14 +100,34 @@
         <button type="button" @click.prevent="addCategory" class="btn btn-success btn-sm">+</button>
         <div v-for="category,index in walletStore.currentWallet.categories" :key="'category'+index">
             <a href="#" class="btn btn-danger btn-sm float-end" @click.prevent="remove(index)">x</a>
-            Name: <input type="text" v-model="category.name"> <br>
+            Name: <input type="text" v-model="category.name"> 
+            <span 
+                v-if="
+                walletStore.validationErrors && 
+                walletStore.validationErrors['categories.0.name']
+                "
+                class="text-red"
+            >
+                {{ walletStore.validationErrors["categories.0.name"][0] }}
+            </span> <br>
             Type: <select v-model="category.type">
                 <option value="1">Income</option>
                 <option value="2">Expense</option>
             </select>
+            <span 
+                v-if="
+                walletStore.validationErrors && 
+                walletStore.validationErrors['categories.0.type']
+                "
+                class="text-red"
+            >
+                {{ walletStore.validationErrors["categories.0.type"][0] }}
+            </span>
             <hr>
         </div>
+        
     </div>
+
 
     <div class="mb-3">
         <label for="firm" class="form-label">Attach users</label><br>

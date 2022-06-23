@@ -57,7 +57,7 @@ const storeAuth = useAuthStore()
         </div>
       </router-link>
     </div>
-    <div 
+    <!-- <div 
       v-if="storeAuth.can('See categories')"
       class="col-md-4 mt-2"
     >
@@ -96,12 +96,12 @@ const storeAuth = useAuthStore()
           {{$t('exchange-rates')}}
         </div>
       </router-link>
-    </div>
+    </div> -->
     <div 
       v-if="storeAuth.can('See history')"  
       class="col-md-4 mt-2"
     >
-      <router-link to="/" tag="div" class="card">
+      <router-link to="/activity-feed" tag="div" class="card">
         <div class="card-body">
           {{$t('news-feed')}}
         </div>
