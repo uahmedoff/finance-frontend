@@ -7,6 +7,8 @@
     import { useItemsNumber } from "@/composables/ItemsNumber"
     import { useTransactionStore } from "@/stores/transaction"
     import { useAuthStore } from '@/stores/auth'
+    import { ref, onMounted  } from 'vue'
+    import * as XLSX from 'xlsx/xlsx.mjs';
 
     const storeAuth = useAuthStore()
     const { correct_pages } = useItemsNumber()
@@ -39,6 +41,14 @@
     }
     getChildWallets(1)
     getTransactions(1)
+    const exportable_table = ref(null)
+    function exportToExcel(type,fn,dl){
+        let elt = exportable_table.value
+        let wb = XLSX.utils.table_to_book(elt,{sheet:"Trsansactions"})
+        return dl ? 
+            XLSX.write(wb,{bookType:type,bookSST:true,type:'base64'}) :
+            XLSX.writeFile(wb,fn||(walletStore.currentWallet.name+'.'+(type||'xlsx')))
+    }
 </script>
  
  <template>
@@ -73,7 +83,8 @@
                     >+</router-link>  
                 </h4>
                 <!-- {{ transactionStore.transactions }} -->
-                <table class="table table-bordered table-condensed table-hover">
+                <button @click="exportToExcel('xlsx')" class="btn btn-warning btn-sm mb-2">Export to Excel</button>
+                <table class="table table-bordered table-condensed table-hover" ref="exportable_table">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -103,13 +114,15 @@
                                     v-if="transaction.debit"
                                     class="green-text"
                                 >
-                                    +{{ transaction.debit }} {{ walletStore.currentWallet.currency.ccy }}
+                                    +{{ transaction.debit }} 
+                                    <!-- {{ walletStore.currentWallet.currency.ccy }} -->
                                 </span>
                                 <span 
                                     v-else
                                     class="red-text"
                                 >
-                                    -{{ transaction.credit }} {{ walletStore.currentWallet.currency.ccy }}
+                                    -{{ transaction.credit }} 
+                                    <!-- {{ walletStore.currentWallet.currency.ccy }} -->
                                 </span>
                             </td>
                             <td>

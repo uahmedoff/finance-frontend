@@ -16,10 +16,10 @@
     async function submitForm(){
         await walletStore.updateWallet()
         if(!walletStore.validationErrors){
+            router.push('/wallets')
             await walletStore.getWallets({
                 order: 'desc'
             })
-            router.push('/wallets')
         }
     }
 </script>
