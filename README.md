@@ -8,7 +8,7 @@
 
 ##### Go to the folder application using cd command on your cmd or terminal
 
-    cd finance-api
+    cd finance-frontend
 
 
 ##### Project Setup
