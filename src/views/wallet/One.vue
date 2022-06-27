@@ -54,11 +54,12 @@
  <template>
     <div v-if="walletStore.currentWallet" class="row">
         <div class="col-md-12">
-            <router-link 
-                to="/wallets" 
+            <a
+                href="#" 
+                @click.prevent="router.go(-1)"
                 class="btn btn-secondary btn-sm"
                 style="float:right"
-            >Back</router-link>
+            >Back</a>
             
             <h3 class="text-center">{{ walletStore.currentWallet.name }}</h3>
             <div class="text-center" v-if="!walletStore.currentWallet.children.length">
