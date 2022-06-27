@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import http from '@/utils/HTTP'
+import walletService from '@/services/wallet'
 
 export const useWalletStore = defineStore({
     id: 'wallet',
@@ -38,11 +38,7 @@ export const useWalletStore = defineStore({
         async getWallets(params){
             this.isLoading = true;
             try{
-                const response = (await http.get(`wallets`,{
-                    params:{
-                        ...params
-                    }
-                })).data;
+                const response = (await walletService.getWallets(params)).data;
                 this.wallets = response.data;
                 this.pagination = response.meta;
                 this.isLoading =false
@@ -57,7 +53,7 @@ export const useWalletStore = defineStore({
             this.validationErrors = null;
             this.isSubmitting = true
             try{
-                await http.post(`wallets`,this.currentWallet)
+                await walletService.addWallet(this.currentWallet)
                 this.isSubmitting = false
                 this.currentWallet = {
                     id: null,
@@ -88,7 +84,7 @@ export const useWalletStore = defineStore({
             this.isLoading = true;
             this.currentWallet = null;
             try{
-                const response = (await http.get(`wallets/${id}`)).data;
+                const response = (await walletService.getWallet(id)).data;
                 this.currentWallet = response.data;
                 this.isLoading =false
             }
@@ -102,7 +98,7 @@ export const useWalletStore = defineStore({
             this.validationErrors = null;
             this.isLoading = true;
             try{
-                const response = (await http.put(`wallets/${this.currentWallet.id}`,this.currentWallet));
+                const response = (await walletService.updateWallet(this.currentWallet));
                 this.currentWallet = {
                     id: null,
                     name: null,
@@ -129,11 +125,11 @@ export const useWalletStore = defineStore({
             }
         },
 
-        async deleteWallet(user_id){
+        async deleteWallet(wallet_id){
             this.isLoading = true
             this.validationErrors = null
             try {
-                await http.delete(`wallets/${user_id}`)
+                await walletService.deleteWallet(wallet_id)
                 this.isLoading = false
             } 
             catch (error) {

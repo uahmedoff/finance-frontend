@@ -80,13 +80,13 @@
                         {{ $t('wallets') }}
                     </router-link>
                 </li>
-                <!-- <li v-if="storeAuth.can('See categories')">
-                    <a href="#" class="nav-link link-dark">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                 <li v-if="storeAuth.can('See categories')">
+                    <router-link to="/categories" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                         {{ $t('categories') }}
-                    </a>
+                    </router-link>
                 </li>
-                <li v-if="storeAuth.can('See payment methods')">
+                <!--<li v-if="storeAuth.can('See payment methods')">
                     <a href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                         {{ $t('payment-methods') }}

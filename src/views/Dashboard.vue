@@ -57,17 +57,17 @@ const storeAuth = useAuthStore()
         </div>
       </router-link>
     </div>
-    <!-- <div 
+    <div 
       v-if="storeAuth.can('See categories')"
       class="col-md-4 mt-2"
     >
-      <router-link to="/" tag="div" class="card">
+      <router-link to="/categories" tag="div" class="card">
         <div class="card-body">
           {{$t('categories')}}
         </div>
       </router-link>
     </div>
-    <div 
+    <!-- <div 
       v-if="storeAuth.can('See payment methods')"
       class="col-md-4 mt-2"
     >

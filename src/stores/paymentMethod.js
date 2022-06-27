@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import http from '@/utils/HTTP'
+import paymentMethodService from '@/services/paymentMethod'
 
 export const usePaymentMethodStore = defineStore({
     id: 'paymentMethod',
@@ -22,11 +22,7 @@ export const usePaymentMethodStore = defineStore({
         async getPaymentMethods(params){
             this.isLoading = true;
             try{
-                const response = (await http.get(`payment_methods`,{
-                    params:{
-                        ...params
-                    }
-                })).data;
+                const response = (await paymentMethodService.getPaymentMethods(params)).data;
                 this.paymentMethods = response.data;
                 this.pagination = response.meta;
                 this.isLoading =false

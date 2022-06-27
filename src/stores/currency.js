@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import http from '@/utils/HTTP'
+import currencyService from '@/services/currency'
 
 export const useCurrencyStore = defineStore({
     id: 'currency',
@@ -27,9 +27,7 @@ export const useCurrencyStore = defineStore({
         async getCurrencies(params){
             this.isLoading = true;
             try{
-                const response = (await http.get(`currencies`,{
-                    ...params
-                })).data;
+                const response = (await currencyService.getCurrencies(params)).data;
                 this.currencies = response.data;
                 this.isLoading =false
             }

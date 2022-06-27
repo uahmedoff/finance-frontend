@@ -120,6 +120,24 @@ const routes = [
               import("@/views/wallet/AddChild.vue"),
           },
           {
+            path: "categories",
+            name: "Category",
+            component: () =>
+              import("@/views/category/All.vue"),
+          },    
+          // {
+          //   path: "categories/:category_id",
+          //   name: "SeeCategory",
+          //   component: () =>
+          //     import("@/views/category/One.vue"),
+          // },
+          {
+            path: "categories/:category_id/edit",
+            name: "EditCategory",
+            component: () =>
+              import("@/views/category/Edit.vue"),
+          },
+          {
             path: "activity-feed",
             name: "ActivityFeed",
             component: () =>

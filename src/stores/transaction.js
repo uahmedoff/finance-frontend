@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import http from '@/utils/HTTP'
+import transactionService from '@/services/transaction'
 
 export const useTransactionStore = defineStore({
     id: 'transaction',
@@ -30,11 +30,7 @@ export const useTransactionStore = defineStore({
         async getTransactions(params){
             this.isLoading = true;
             try{
-                const response = (await http.get(`transactions`,{
-                    params:{
-                        ...params
-                    }
-                })).data;
+                const response = (await transactionService.getTransactions(params)).data;
                 this.transactions = response.data;
                 this.pagination = response.meta;
                 this.isLoading =false
@@ -48,7 +44,7 @@ export const useTransactionStore = defineStore({
         async addTransaction(){
             this.isSubmitting = true
             try{
-                await http.post(`transactions`,this.currentTransaction)
+                await transactionService.addTransaction(this.currentTransaction)
                 this.isSubmitting = false
                 this.currentTransaction = {
                     id: null,
@@ -117,7 +113,7 @@ export const useTransactionStore = defineStore({
             this.isLoading = true
             this.validationErrors = null
             try {
-                await http.delete(`transactions/${transaction_id}`)
+                await transactionService.deleteTransaction(transaction_id)
                 this.isLoading = false
             } 
             catch (error) {
