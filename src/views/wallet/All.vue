@@ -31,6 +31,12 @@
             
         >+</router-link>  
     </h2>
+    <b-skeleton-table
+        v-if="walletStore.isLoading"
+        :rows="5"
+        :columns="7"
+        :table-props="{ bordered: true, striped: true }"
+    ></b-skeleton-table>
     <template v-if="walletStore.wallets">
         <table class="table table-bordered table-condensed">
             <thead>

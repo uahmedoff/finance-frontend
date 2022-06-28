@@ -35,7 +35,17 @@
     <router-view></router-view>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered table-condensed table-hover">
+            <b-skeleton-table
+                v-if="userStore.isLoading"
+                :rows="6"
+                :columns="4"
+                :table-props="{ bordered: true, striped: true }"
+            ></b-skeleton-table>
+
+            <table 
+                v-else
+                class="table table-bordered table-condensed table-hover"
+            >
                 <thead>
                     <tr>
                         <th>#</th>

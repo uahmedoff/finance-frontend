@@ -52,6 +52,12 @@
             order: 'desc'
         })
     }
+    async function deleteWallet(wallet_id){
+        if(confirm(i18n.t('areYouSure'))){
+            await walletStore.deleteWallet(wallet_id)
+            await getChildWallets(1)
+        }
+    }
     getChildWallets(1)
     getTransactions(1)
     const exportable_table = ref(null)
@@ -98,6 +104,12 @@
                 </h4>
                 <!-- {{ transactionStore.transactions }} -->
                 <button @click="exportToExcel('xlsx')" class="btn btn-warning btn-sm mb-2">{{ $t('Export to MS Excel') }}</button>
+                <b-skeleton-table
+                    v-if="transactionStore.isLoading"
+                    :rows="5"
+                    :columns="7"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
                 <table class="table table-bordered table-condensed table-hover" ref="exportable_table">
                     <thead>
                         <tr>
@@ -217,6 +229,12 @@
                         
                     >+</router-link>  
                 </h4>
+                <b-skeleton-table
+                    v-if="walletStore.isLoading"
+                    :rows="3"
+                    :columns="7"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
                 <template v-if="walletStore.wallets">
                     <table class="table table-bordered table-condensed">
                         <thead>
@@ -254,8 +272,8 @@
                                 </td>
                                 <td>{{ wallet.users.length }}</td>
                                 <td>
-                                    <router-link :to="'/wallets/' + wallet.id + '/edit'" class="btn btn-primary btn-sm mr-2">Edit</router-link> &nbsp;
-                                    <a href="#" @click.prevent="deleteWallet(wallet.id)" class="btn btn-danger btn-sm ml-2">Delete</a>
+                                    <router-link :to="'/wallets/' + wallet.id + '/edit'" class="btn btn-primary btn-sm mr-2">{{ $t('edit') }}</router-link> &nbsp;
+                                    <a href="#" @click.prevent="deleteWallet(wallet.id)" class="btn btn-danger btn-sm ml-2">{{ $t('delete') }}</a>
                                 </td>
                             </tr>
                         </tbody>

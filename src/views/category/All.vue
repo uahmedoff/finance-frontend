@@ -41,7 +41,7 @@
                 t = "Income";
                 break;
             case 2:
-                t= "Expense";
+                t = "Expense";
                 break;    
         }
         return t;
@@ -54,7 +54,13 @@
     
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered table-condensed table-hover">
+            <b-skeleton-table
+                v-if="categoryStore.isLoading"
+                :rows="25"
+                :columns="5"
+                :table-props="{ bordered: true, striped: true }"
+            ></b-skeleton-table>
+            <table v-else class="table table-bordered table-condensed table-hover">
                 <thead>
                     <tr>
                         <th>#</th>

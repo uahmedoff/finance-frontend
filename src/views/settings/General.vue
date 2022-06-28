@@ -12,6 +12,7 @@
         if(!authStore.validationErrors){
             alert("Settings were saved!")
             // router.push('/users')
+            window.location.reload()
         }
     }
     

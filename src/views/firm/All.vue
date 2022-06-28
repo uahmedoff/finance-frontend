@@ -33,7 +33,16 @@
     <router-view></router-view>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered table-condensed table-hover">
+            <b-skeleton-table
+                v-if="firmStore.isLoading"
+                :rows="5"
+                :columns="3"
+                :table-props="{ bordered: true, striped: true }"
+            ></b-skeleton-table>
+            <table 
+                v-else    
+                class="table table-bordered table-condensed table-hover"
+            >
                 <thead>
                     <tr>
                         <th>#</th>

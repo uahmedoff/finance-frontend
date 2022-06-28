@@ -13,16 +13,96 @@
     }
 </script>
 <template>
+    <div 
+        v-if="roleStore.isLoading"
+        id="permissions"
+    >
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <b-skeleton animation="wave" width="85%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+        <b-skeleton animation="wave" width="70%"></b-skeleton>
+    </div>
     <div v-if="roleStore.role && roleStore.permissions">
         <router-link to="/roles" class="btn btn-secondary btn-sm float-end">{{ $t('back') }}</router-link>
         <h3 class="text-center">{{ $t(roleStore.role.role) }}</h3>
         <div id="permissions">
-            <div v-for="permission,index in roleStore.permissions.data" :key="'permission' + index">
-                <label>
-                    <input type="checkbox" v-model="roleStore.role.permissions" :value="permission"> 
-                    {{ $t(permission) }}
-                </label> 
-            </div>
+            
+            <!-- <template v-else> -->
+                <div v-for="permission,index in roleStore.permissions.data" :key="'permission' + index">
+                    <label>
+                        <input type="checkbox" v-model="roleStore.role.permissions" :value="permission"> 
+                        {{ $t(permission) }}
+                    </label> 
+                </div>
+            <!-- </template> -->
         </div>
         <br>
         <button 
