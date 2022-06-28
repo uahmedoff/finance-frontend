@@ -6,7 +6,7 @@
 <template>
     
     <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="name" class="form-label">{{ $t('username') }}</label>
         <input type="text" class="form-control" id="name" v-model="userStore.currentUser.name">
         <span 
             v-if="
@@ -20,7 +20,7 @@
         </span>
     </div>
     <div class="mb-3">
-        <label for="phone" class="form-label">Phone</label>
+        <label for="phone" class="form-label">{{ $t('phone') }}</label>
         <input type="text" class="form-control" id="phone" v-model="userStore.currentUser.phone">
         <span 
             v-if="
@@ -34,7 +34,7 @@
         </span>
     </div>
     <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
+        <label for="password" class="form-label">{{ $t('password') }}</label>
         <input type="password" class="form-control" id="password" v-model="userStore.currentUser.password">
         <span 
             v-if="
@@ -48,7 +48,7 @@
         </span>
     </div>
     <div class="mb-3">
-        <label for="lang" class="form-label">Language</label>
+        <label for="lang" class="form-label">{{ $t('lang') }}</label>
         <select id="lang" class="form-control" v-model="userStore.currentUser.lang">
             <option value="uz">O`zbekcha</option>
             <option value="ru">Russian</option>
@@ -66,12 +66,12 @@
         </span>
     </div>
     <div class="mb-3">
-        <label for="role" class="form-label">Role</label>
+        <label for="role" class="form-label">{{ $t('role') }}</label>
         <select id="role" class="form-control" v-model="userStore.currentUser.role">
-            <option value="CEO">CEO</option>
-            <option value="CFO">CFO</option>
-            <option value="Manager">Manager</option>
-            <option value="Cashier">Cashier</option>
+            <option value="CEO">{{ $t('CEO') }}</option>
+            <option value="CFO">{{ $t('CFO') }}</option>
+            <option value="Manager">{{ $t('Manager') }}</option>
+            <option value="Cashier">{{ $t('Cashier') }}</option>
         </select>
         <span 
             v-if="

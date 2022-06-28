@@ -22,6 +22,6 @@
     >x</router-link>
     <form @submit.prevent="submitForm" class="pb-3">
         <Form />
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">{{ $t('Submit') }}</button>
     </form>    
 </template>

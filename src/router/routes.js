@@ -143,6 +143,12 @@ const routes = [
             component: () =>
               import("@/views/activity/All.vue"),
           },
+          {
+            path: "settings",
+            name: "Settings",
+            component: () =>
+              import("@/views/settings/General.vue"),
+          },
         ]
     },
 

@@ -30,8 +30,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Actions</th>
+                        <th>{{ $t('name') }}</th>
+                        <th>{{ $t('actions') }}</th>
                     </tr>
                     <!-- <tr>
                         <th></th>
@@ -55,11 +55,11 @@
                                 ) 
                             }}
                         </td>
-                        <td>{{role.name}}</td>
+                        <td>{{ $t(role.name) }}</td>
                         <td>
                             <!-- <router-link :to="'/users/'+user.id+'/edit'" class="btn btn-primary btn-sm">Edit</router-link> &nbsp;
                             <a href="#" @click.prevent="deleteUser(user.id)" class="btn btn-danger btn-sm">Delete</a> -->
-                            <router-link :to="'/roles/' + role.id + '/permissions'" class="btn btn-primary btn-sm">Permissions</router-link>
+                            <router-link :to="'/roles/' + role.id + '/permissions'" class="btn btn-primary btn-sm">{{ $t('permissions') }}</router-link>
                         </td>
                     </tr>
                 </tbody>

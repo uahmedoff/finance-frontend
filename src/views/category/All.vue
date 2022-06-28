@@ -4,6 +4,7 @@
     import { useWalletStore } from "@/stores/wallet"
     import Paginate from "vuejs-paginate-next";
     import { useItemsNumber } from "@/composables/ItemsNumber"
+    import { i18n } from "@/utils/i18n"
 
     const { correct_pages } = useItemsNumber()
     const filter_wallet_id = ref(null);
@@ -13,7 +14,8 @@
     const categoryStore = useCategoryStore()
     const walletStore = useWalletStore()
     walletStore.getWallets({
-        all:true
+        all:true,
+        parentWithChildren:true
     })
     async function getCategories(page = 1){
         await categoryStore.getCategories({
@@ -26,7 +28,7 @@
         })
     }
     async function deleteCategory(category_id){
-        if(confirm("Are you sure?")){
+        if(confirm(i18n.t('areYouSure'))){
             await categoryStore.deleteCategory(category_id)
             getCategories(1)
         }
@@ -56,10 +58,10 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Wallet</th>
-                        <th>Actions</th>
+                        <th>{{ $t('name') }}</th>
+                        <th>{{ $t('Type') }}</th>
+                        <th>{{ $t('Wallet') }}</th>
+                        <th>{{ $t('actions') }}</th>
                     </tr>
                     <tr>
                         <th></th>
@@ -67,8 +69,8 @@
                         <th>
                             <select type="text" v-model="filter_type" @change.prevent="getCategories(1)">
                                 <option></option>
-                                <option value="1">Income</option>
-                                <option value="2">Expense</option>
+                                <option value="1">{{ $t('Income') }}</option>
+                                <option value="2">{{ $t('Expense') }}</option>
                             </select>
                         </th>
                         <th>
@@ -78,7 +80,6 @@
                                 <option v-for="wallet,index in walletStore.wallets" :key="'wallet'+index" :value="wallet.id">{{ wallet.name }}</option>
                             </select>
                         </th>
-                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -95,13 +96,13 @@
                             }}
                         </td>
                         <td>{{ category.name }}</td>
-                        <td>{{ getCategoryType(category.type) }}</td>
+                        <td>{{ $t(getCategoryType(category.type)) }}</td>
                         <td>
                             <span v-if="category.wallet">{{category.wallet.name}}</span>
                         </td>
                         <td>
-                            <router-link :to="'/categories/'+category.id+'/edit'" class="btn btn-primary btn-sm">Edit</router-link> &nbsp;
-                            <a href="#" @click.prevent="deleteCategory(category.id)" class="btn btn-danger btn-sm">Delete</a>
+                            <router-link :to="'/categories/'+category.id+'/edit'" class="btn btn-primary btn-sm">{{ $t('edit') }}</router-link> &nbsp;
+                            <a href="#" @click.prevent="deleteCategory(category.id)" class="btn btn-danger btn-sm">{{ $t('delete') }}</a>
                         </td>
                     </tr>
                 </tbody>

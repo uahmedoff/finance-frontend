@@ -30,10 +30,10 @@
 
 <template>
     <div class="mb-3" v-if="!route.params.firm_id">
-        <label for="type" class="form-label">Type</label>
+        <label for="type" class="form-label">{{ $t('Type') }}</label>
         <select id="type" v-model="transaction_type" class="form-control" @change="selectType">
-            <option value="1">Income</option>
-            <option value="2">Expence</option>
+            <option value="1">{{ $t('Income') }}</option>
+            <option value="2">{{ $t('Expense') }}</option>
         </select>
         <span 
             v-if="
@@ -49,7 +49,7 @@
     
     <template v-if="transaction_type">
         <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
+            <label for="category" class="form-label">{{ $t('Category') }}</label>
             <select id="category" v-model="transactionStore.currentTransaction.category_id" class="form-control">
                 <option 
                     v-for="cat,index in categoryStore.categories" 
@@ -70,7 +70,7 @@
         </div>
         
         <div class="mb-3">
-            <label for="payment_method" class="form-label">Payment method</label>
+            <label for="payment_method" class="form-label">{{ $t('Payment method') }}</label>
             <select id="payment_method" v-model="transactionStore.currentTransaction.payment_method_id" class="form-control">
                 <option 
                     v-for="payment_method,index in paymentMethodStore.paymentMethods" 
@@ -93,7 +93,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="date" class="form-label">Date</label>
+            <label for="date" class="form-label">{{ $t('Date') }}</label>
             <Datepicker v-model="transactionStore.currentTransaction.date" id="date" :format="formatDate"></Datepicker>
             <span 
                 v-if="
@@ -108,7 +108,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="date" class="form-label">Sum</label>
+            <label for="date" class="form-label">{{ $t('Sum') }}</label>
             <template v-if="transaction_type == 1">
                 <input type="text" v-model="transactionStore.currentTransaction.debit" class="form-control">
                 <span 
@@ -139,7 +139,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="note" class="form-label">Note</label>
+            <label for="note" class="form-label">{{ $t('Note') }}</label>
             <textarea v-model="transactionStore.currentTransaction.note" id="note" class="form-control"></textarea>
             <span 
                 v-if="
@@ -152,7 +152,7 @@
                 {{ paymentMethodStore.validationErrors.note[0] }}
             </span>
         </div> 
-        <input type="submit" value="Submit">
+        <input type="submit" :value="$t('Submit')">
     </template>
 
 </template>

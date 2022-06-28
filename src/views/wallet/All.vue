@@ -2,6 +2,7 @@
     import Paginate from "vuejs-paginate-next";
     import { useWalletStore } from "@/stores/wallet"
     import { useItemsNumber } from "@/composables/ItemsNumber"
+    import { i18n } from "@/utils/i18n"
     const { correct_pages } = useItemsNumber()
     const walletStore = useWalletStore();
     async function getWallets(page = 1){
@@ -11,7 +12,7 @@
         })
     }
     async function deleteWallet(wallet_id){
-        if(confirm("Are sure to delete?")){
+        if(confirm(i18n.t('areYouSure'))){
             await walletStore.deleteWallet(wallet_id);
             await walletStore.getWallets({
                 order: "DESC" 
@@ -35,12 +36,12 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Project api url</th>
-                    <th>Currency</th>
-                    <th>Firm</th>
-                    <th>Users</th>
-                    <th>Actions</th>
+                    <th>{{ $t('name') }}</th>
+                    <th>{{ $t('Project Api URL') }}</th>
+                    <th>{{ $t('Currency') }}</th>
+                    <th>{{ $t('Firm') }}</th>
+                    <th>{{ $t('users') }}</th>
+                    <th>{{ $t('actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,8 +68,8 @@
                     </td>
                     <td>{{ wallet.users.length }}</td>
                     <td>
-                        <router-link :to="'/wallets/' + wallet.id + '/edit'" class="btn btn-primary btn-sm mr-2">Edit</router-link> &nbsp;
-                        <a href="#" @click.prevent="deleteWallet(wallet.id)" class="btn btn-danger btn-sm ml-2">Delete</a>
+                        <router-link :to="'/wallets/' + wallet.id + '/edit'" class="btn btn-primary btn-sm mr-2">{{ $t('edit') }}</router-link> &nbsp;
+                        <a href="#" @click.prevent="deleteWallet(wallet.id)" class="btn btn-danger btn-sm ml-2">{{ $t('delete') }}</a>
                     </td>
                 </tr>
             </tbody>

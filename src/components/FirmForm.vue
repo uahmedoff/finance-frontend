@@ -6,7 +6,7 @@
 <template>
 
     <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="name" class="form-label">{{ $t('name') }}</label>
         <input type="text" class="form-control" id="name" v-model="firmStore.currentFirm.name">
         <span 
             v-if="

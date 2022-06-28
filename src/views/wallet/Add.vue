@@ -39,12 +39,12 @@
         to="/wallets" 
         class="btn btn-secondary btn-sm"
         style="float:right"
-    >Back</router-link>
+    >{{ $t('back') }}</router-link>
     
-    <h2 class="text-center">Add new wallet</h2>
+    <h2 class="text-center">{{ $t('Add new wallet') }}</h2>
 
     <form @submit.prevent="submitForm" class="pb-3">
         <Form />
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">{{ $t('Submit') }}</button>
     </form>    
 </template>

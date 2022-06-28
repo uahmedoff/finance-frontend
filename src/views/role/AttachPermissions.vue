@@ -14,13 +14,13 @@
 </script>
 <template>
     <div v-if="roleStore.role && roleStore.permissions">
-        <router-link to="/roles" class="btn btn-secondary btn-sm float-end">Back</router-link>
-        <h3 class="text-center">{{ roleStore.role.role }}</h3>
+        <router-link to="/roles" class="btn btn-secondary btn-sm float-end">{{ $t('back') }}</router-link>
+        <h3 class="text-center">{{ $t(roleStore.role.role) }}</h3>
         <div id="permissions">
             <div v-for="permission,index in roleStore.permissions.data" :key="'permission' + index">
                 <label>
                     <input type="checkbox" v-model="roleStore.role.permissions" :value="permission"> 
-                    {{ permission }}
+                    {{ $t(permission) }}
                 </label> 
             </div>
         </div>

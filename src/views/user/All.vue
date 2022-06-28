@@ -4,6 +4,7 @@
     import Paginate from "vuejs-paginate-next";
     import Form from '@/components/UserForm.vue'
     import { useItemsNumber } from "@/composables/ItemsNumber"
+    import { i18n } from '@/utils/i18n';
 
     const { correct_pages } = useItemsNumber()
     const filter_name = ref(null);
@@ -20,7 +21,7 @@
         })
     }
     async function deleteUser(user_id){
-        if(confirm("Are you sure?")){
+        if(confirm(i18n.t('areYouSure'))){
             await userStore.deleteUser(user_id)
             await userStore.getUsers(1)
         }
@@ -38,11 +39,11 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Lang</th>
-                        <th>Role</th>
-                        <th>Actions</th>
+                        <th>{{ $t('username') }}</th>
+                        <th>{{ $t('phone') }}</th>
+                        <th>{{ $t('lang') }}</th>
+                        <th>{{ $t('role') }}</th>
+                        <th>{{ $t('actions') }}</th>
                     </tr>
                     <tr>
                         <th></th>
@@ -68,10 +69,10 @@
                         <td>{{user.name}}</td>
                         <td>{{user.phone}}</td>
                         <td>{{user.lang}}</td>
-                        <td>{{user.role}}</td>
+                        <td>{{$t(user.role)}}</td>
                         <td>
-                            <router-link :to="'/users/'+user.id+'/edit'" class="btn btn-primary btn-sm">Edit</router-link> &nbsp;
-                            <a href="#" @click.prevent="deleteUser(user.id)" class="btn btn-danger btn-sm">Delete</a>
+                            <router-link :to="'/users/'+user.id+'/edit'" class="btn btn-primary btn-sm">{{ $t('edit') }}</router-link> &nbsp;
+                            <a href="#" @click.prevent="deleteUser(user.id)" class="btn btn-danger btn-sm">{{ $t('delete') }}</a>
                         </td>
                     </tr>
                 </tbody>

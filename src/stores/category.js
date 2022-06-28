@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-// import http from '@/utils/HTTP'
 import categoryService from '@/services/category'
 
 export const useCategoryStore = defineStore({

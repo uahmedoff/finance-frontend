@@ -7,26 +7,39 @@
     import { useItemsNumber } from "@/composables/ItemsNumber"
     import { useTransactionStore } from "@/stores/transaction"
     import { useAuthStore } from '@/stores/auth'
+    import { useCategoryStore } from '@/stores/category'
+    import { usePaymentMethodStore } from '@/stores/paymentMethod'
     import { ref, onMounted  } from 'vue'
     import * as XLSX from 'xlsx/xlsx.mjs';
+    import { i18n } from '@/utils/i18n'
 
     const storeAuth = useAuthStore()
     const { correct_pages } = useItemsNumber()
     const route = useRoute()
     const walletStore = useWalletStore();
     const transactionStore = useTransactionStore();
+    const categoryStore = useCategoryStore();
+    const paymentMethodStore = usePaymentMethodStore();
+    categoryStore.getCategories({
+      wallet_id: route.params.wallet_id
+    })
+    paymentMethodStore.getPaymentMethods()
     walletStore.getWallet(route.params.wallet_id)
+    const filter_category = ref(null)
+    const filter_payment_method = ref(null)
+    const filter_date = ref(null)
     async function getTransactions(page = 1){
         await transactionStore.getTransactions({
             page,
+            date: (filter_date.value) ? moment(filter_date.value).format("YYYY-MM-DD") : null,
             wallet_id: route.params.wallet_id,
-            // category: filter_category.value,
-            // payment_method: filter_payment_method.value,
+            category_id: filter_category.value,
+            payment_method_id: filter_payment_method.value,
             order: 'desc'
         })
     }
     async function deleteTransaction(transaction_id){
-        if(confirm("Are you sure to delete this transaction?")){
+        if(confirm(i18n.t('areYouSure'))){
             await transactionStore.deleteTransaction(transaction_id)
             await walletStore.getWallet(route.params.wallet_id)
             await getTransactions(1)
@@ -59,12 +72,12 @@
                 @click.prevent="router.go(-1)"
                 class="btn btn-secondary btn-sm"
                 style="float:right"
-            >Back</a>
+            >{{ $t('back') }}</a>
             
             <h3 class="text-center">{{ walletStore.currentWallet.name }}</h3>
             <div class="text-center" v-if="!walletStore.currentWallet.children.length">
-                Balance: <span>{{ walletStore.currentWallet.balance }} {{ walletStore.currentWallet.currency.ccy }}</span> &nbsp;&nbsp;&nbsp;
-                Monthly Cash Flow: <span>{{ walletStore.currentWallet.monthly_cash_flow }} {{ walletStore.currentWallet.currency.ccy }}</span>
+                {{ $t('Balance') }}: <span>{{ walletStore.currentWallet.balance }} {{ walletStore.currentWallet.currency.ccy }}</span> &nbsp;&nbsp;&nbsp;
+                {{ $t('Monthly Cash Flow') }}: <span>{{ walletStore.currentWallet.monthly_cash_flow }} {{ walletStore.currentWallet.currency.ccy }}</span>
             </div>
 
             <center>
@@ -72,30 +85,63 @@
                     v-if="walletStore.currentWallet.children.length"
                     :to="`/wallets/${route.params.wallet_id}/transactions/add`"
                     class="btn btn-success btn-sm"            
-                > + Add transaction</router-link>  
+                > + {{ $t('Add transaction') }}</router-link>  
             </center>
 
             <div v-if="!walletStore.currentWallet.children.length" class="pt-5">
                 <h4 class="text-center">
-                    Transactions 
+                    {{ $t('transactions') }} 
                     <router-link 
                         :to="`/wallets/${route.params.wallet_id}/transactions/add`"
                         class="btn btn-success btn-sm"            
                     >+</router-link>  
                 </h4>
                 <!-- {{ transactionStore.transactions }} -->
-                <button @click="exportToExcel('xlsx')" class="btn btn-warning btn-sm mb-2">Export to Excel</button>
+                <button @click="exportToExcel('xlsx')" class="btn btn-warning btn-sm mb-2">{{ $t('Export to MS Excel') }}</button>
                 <table class="table table-bordered table-condensed table-hover" ref="exportable_table">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Amount</th>
-                            <th>Date</th>
+                            <th>{{ $t('Sum') }}</th>
+                            <th>{{ $t('Date') }}</th>
                             <!-- <th>Image</th> -->
-                            <th>Category</th>
-                            <th>Payment Method</th>
-                            <th>Note</th>
-                            <th>Actions</th>
+                            <th>{{ $t('Category') }}</th>
+                            <th>{{ $t('Payment Method') }}</th>
+                            <th>{{ $t('Note') }}</th>
+                            <th>{{ $t('actions') }}</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>
+                                <Datepicker v-model="filter_date" @update:modelValue="getTransactions(1)" />
+                            </th>
+                            <th>
+                                <select v-model="filter_category" @change.prevent="getTransactions(1)">
+                                    <option></option>
+                                    <option 
+                                        v-for="category,index in categoryStore.categories" 
+                                        :key="'category'+index" 
+                                        :value="category.id"
+                                    >
+                                        {{ category.name }}
+                                    </option>
+                                </select>
+                            </th>
+                            <th>
+                                <select v-model="filter_payment_method" @change.prevent="getTransactions(1)">
+                                    <option></option>
+                                    <option 
+                                        v-for="paymentMethod,index in paymentMethodStore.paymentMethods" 
+                                        :key="'paymentMethod'+index" 
+                                        :value="paymentMethod.id"
+                                    >
+                                        {{ paymentMethod.name }}
+                                    </option>
+                                </select>
+                            </th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -145,7 +191,7 @@
                                     href="#" 
                                     @click.prevent="deleteTransaction(transaction.id)" 
                                     class="btn btn-danger btn-sm ml-2"
-                                >Delete</a>
+                                >{{ $t('delete') }}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -176,12 +222,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Project api url</th>
-                                <th>Currency</th>
-                                <th>Firm</th>
-                                <th>Users</th>
-                                <th>Actions</th>
+                                <th>{{ $t('name') }}</th>
+                                <th>{{ $t('Project Api URL') }}</th>
+                                <th>{{ $t('Currency') }}</th>
+                                <th>{{ $t('Firm') }}</th>
+                                <th>{{ $t('users') }}</th>
+                                <th>{{ $t('actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>

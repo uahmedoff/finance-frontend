@@ -4,6 +4,7 @@
     import Paginate from "vuejs-paginate-next";
     import { useItemsNumber } from "@/composables/ItemsNumber"
     import Form from '@/components/FirmForm.vue'
+    import {i18n} from '@/utils/i18n'
 
     const { correct_pages } = useItemsNumber()
     const search = ref(null);
@@ -16,7 +17,7 @@
         })
     }
     async function deleteFirm(firm_id){
-        if(confirm("Are you sure?")){
+        if(confirm(i18n.t("areYouSure"))){
             await firmStore.deleteFirm(firm_id)
             await getFirms({
                 order: 'desc'
@@ -36,8 +37,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Actions</th>
+                        <th>{{ $t('name') }}</th>
+                        <th>{{ $t('actions') }}</th>
                     </tr>
                     <tr>
                         <th></th>
@@ -59,9 +60,9 @@
                         </td>
                         <td>{{firm.name}}</td>
                         <td>
-                            <router-link :to="'/firms/'+firm.id+'/transactions/add'" class="btn btn-warning btn-sm">Make expence</router-link> &nbsp;
-                            <router-link :to="'/firms/'+firm.id+'/edit'" class="btn btn-primary btn-sm">Edit</router-link> &nbsp;
-                            <a href="#" @click.prevent="deleteFirm(firm.id)" class="btn btn-danger btn-sm">Delete</a>
+                            <router-link :to="'/firms/'+firm.id+'/transactions/add'" class="btn btn-warning btn-sm">{{ $t('Make expense') }}</router-link> &nbsp;
+                            <router-link :to="'/firms/'+firm.id+'/edit'" class="btn btn-primary btn-sm">{{ $t('edit') }}</router-link> &nbsp;
+                            <a href="#" @click.prevent="deleteFirm(firm.id)" class="btn btn-danger btn-sm">{{ $t('delete') }}</a>
                         </td>
                     </tr>
                 </tbody>

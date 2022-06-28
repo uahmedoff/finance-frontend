@@ -26,7 +26,7 @@
 
 <template>
     <div>
-        <h3 class="text-center">Add transaction</h3>
+        <h3 class="text-center">{{ $t('Add transaction') }}</h3>
         <form @submit.prevent="addTransaction">
             <Form />
         </form>

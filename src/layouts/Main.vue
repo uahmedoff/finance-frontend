@@ -14,6 +14,11 @@
             $("#offcanvasExample").removeClass("show")
             $("body").removeAttr("style")
         });
+        $(".offcanvas .dropdown-item").click(function(){
+            $(".offcanvas-backdrop").remove()
+            $("#offcanvasExample").removeClass("show")
+            $("body").removeAttr("style")
+        });
     });
 </script>
 
@@ -118,7 +123,7 @@
                 <strong>{{ storeAuth.currentUser.name }}</strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                <li><a class="dropdown-item" href="#">{{ $t('settings') }}</a></li>
+                <li><router-link to="/settings" class="dropdown-item">{{ $t('settings') }}</router-link></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#" @click.prevent="logout">{{ $t('logout') }}</a></li>
             </ul>

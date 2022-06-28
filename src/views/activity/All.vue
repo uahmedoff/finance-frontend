@@ -10,7 +10,7 @@
 
 <template>
     <div>
-        <h3 class="text-center">Activity feed</h3>
+        <h3 class="text-center">{{ $t('news-feed') }}</h3>
         <div 
             v-for="h,index in historyStore.history" :key="'history'+index"
             class="card mt-3"

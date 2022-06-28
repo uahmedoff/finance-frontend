@@ -72,5 +72,21 @@ export const useAuthStore = defineStore({
             removeItem('accessToken');
             router.push('/auth/login');
         },
+        async updateCurrentUser(){
+            this.isSubmitting = true;
+            this.validationErrors = null;
+            try {
+                const response = (await authService.updateCurrentUser(this.currentUser)).data;
+                setItem('user',response.data);
+                // setItem('accessToken',response.meta.token);
+                i18n.locale = response.data.lang
+                this.isSubmitting = false;
+                this.currentUser = response.data;
+            } 
+            catch (error) {
+                this.isSubmitting = false;
+                this.validationErrors = error.response.data.errors;
+            }            
+        }
     }
 })
