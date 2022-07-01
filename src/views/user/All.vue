@@ -1,5 +1,5 @@
 <script setup>
-    import { ref } from "vue" 
+    import { ref, onMounted } from "vue" 
     import { useUserStore } from "@/stores/user"
     import Paginate from "vuejs-paginate-next";
     import Form from '@/components/UserForm.vue'
@@ -11,6 +11,8 @@
     const filter_phone = ref(null);
     const filter_lang = ref(null);
     const userStore = useUserStore()
+    
+    // methods
     async function getUsers(page = 1){
         await userStore.getUsers({
             page,
@@ -26,6 +28,16 @@
             await userStore.getUsers(1)
         }
     }
+
+    // mounted
+    onMounted(() => {
+        window.Echo.channel('channel-user')
+            .listen('UserEvent',(e) => {
+                if(e.changed){
+                    getUsers(1)
+                }
+            })
+    })
     getUsers()
 </script>
 

@@ -1,10 +1,20 @@
 <script setup>
-    import {ref} from "vue"
+    import {ref,onMounted} from "vue"
     import { useAuthStore } from '@/stores/auth'
     const authStore = useAuthStore()
     let credentials = ref({
         phone: '',
         password: ''
+    })
+
+    // mounted
+    onMounted(() => {
+        // alert(557)
+
+        window.Echo.channel('channel')
+            .listen('Hello',(e) => {
+                console.log(e.hello)
+            })
     })
 </script>
 

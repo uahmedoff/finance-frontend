@@ -1,10 +1,13 @@
 <script setup>
+    import { onMounted } from 'vue'
     import Paginate from "vuejs-paginate-next";
     import { useWalletStore } from "@/stores/wallet"
     import { useItemsNumber } from "@/composables/ItemsNumber"
     import { i18n } from "@/utils/i18n"
     const { correct_pages } = useItemsNumber()
     const walletStore = useWalletStore();
+    
+    // methods
     async function getWallets(page = 1){
         await walletStore.getWallets({
             page,
@@ -19,6 +22,17 @@
             });
         }
     }
+
+    // mounted
+    onMounted(() => {
+        window.Echo.channel('channel-wallet')
+            .listen('WalletEvent',(e) => {
+                if(e.changed){
+                    getWallets(1)
+                }
+            })
+    })
+
     getWallets(1)
 </script>
 

@@ -1,5 +1,6 @@
 <script setup>
-    import {useRoleStore} from '@/stores/role'
+    import { useRoleStore } from '@/stores/role'
+    import MultiColumnSkeleton from '@/components/MultiColumnSkeleton.vue'
     import { useRoute } from 'vue-router'
     import { onMounted } from 'vue'
     const roleStore = useRoleStore()
@@ -7,90 +8,31 @@
     
     roleStore.getRole(route.params.role_id)
     roleStore.getPermissions()
+    
+    // methods
     async function savePermissions(){
         await roleStore.putPermissionsToRole(route.params.role_id,roleStore.role.permissions.join(","))
         alert("Permissions are attached!")
     }
+
+    // mounted
+    onMounted(() => {
+        window.Echo.channel('channel-permission')
+            .listen('PermissionEvent',(e) => {
+                if(e.changed){
+                    roleStore.getRole(route.params.role_id)
+                }
+            })
+    })
 </script>
 <template>
     <div 
         v-if="roleStore.isLoading"
         id="permissions"
     >
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
-        <b-skeleton animation="wave" width="85%"></b-skeleton>
-        <b-skeleton animation="wave" width="55%"></b-skeleton>
-        <b-skeleton animation="wave" width="70%"></b-skeleton>
+        <MultiColumnSkeleton />
     </div>
-    <div v-if="roleStore.role && roleStore.permissions">
+    <div v-else-if="roleStore.role && roleStore.permissions">
         <router-link to="/roles" class="btn btn-secondary btn-sm float-end">{{ $t('back') }}</router-link>
         <h3 class="text-center">{{ $t(roleStore.role.role) }}</h3>
         <div id="permissions">

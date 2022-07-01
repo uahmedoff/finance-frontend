@@ -1,5 +1,5 @@
 <script setup>
-    import { ref } from "vue" 
+    import { ref, onMounted } from "vue" 
     import { useFirmStore } from "@/stores/firm"
     import Paginate from "vuejs-paginate-next";
     import { useItemsNumber } from "@/composables/ItemsNumber"
@@ -9,6 +9,8 @@
     const { correct_pages } = useItemsNumber()
     const search = ref(null);
     const firmStore = useFirmStore()
+    
+    // methods
     async function getFirms(page = 1){
         await firmStore.getFirms({
             page,
@@ -24,6 +26,16 @@
             })
         }
     }
+    
+    // mounted
+    onMounted(() => {
+        window.Echo.channel('channel-firm')
+            .listen('FirmEvent',(e) => {
+                if(e.changed){
+                    getFirms(1)
+                }
+            })
+    })
     getFirms()
 </script>
 

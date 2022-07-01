@@ -20,14 +20,12 @@
     const transactionStore = useTransactionStore();
     const categoryStore = useCategoryStore();
     const paymentMethodStore = usePaymentMethodStore();
-    categoryStore.getCategories({
-      wallet_id: route.params.wallet_id
-    })
-    paymentMethodStore.getPaymentMethods()
-    walletStore.getWallet(route.params.wallet_id)
     const filter_category = ref(null)
     const filter_payment_method = ref(null)
     const filter_date = ref(null)
+    const exportable_table = ref(null)
+    
+    // methods
     async function getTransactions(page = 1){
         await transactionStore.getTransactions({
             page,
@@ -58,9 +56,6 @@
             await getChildWallets(1)
         }
     }
-    getChildWallets(1)
-    getTransactions(1)
-    const exportable_table = ref(null)
     function exportToExcel(type,fn,dl){
         let elt = exportable_table.value
         let wb = XLSX.utils.table_to_book(elt,{sheet:"Trsansactions"})
@@ -68,6 +63,25 @@
             XLSX.write(wb,{bookType:type,bookSST:true,type:'base64'}) :
             XLSX.writeFile(wb,fn||(walletStore.currentWallet.name+'.'+(type||'xlsx')))
     }
+
+    // mounted
+    onMounted(() => {
+        window.Echo.channel('channel-wallet')
+            .listen('WalletEvent',(e) => {
+                if(e.changed){
+                    getChildWallets(1)
+                }
+            })
+    })
+
+
+    categoryStore.getCategories({
+      wallet_id: route.params.wallet_id
+    })
+    paymentMethodStore.getPaymentMethods()
+    walletStore.getWallet(route.params.wallet_id)
+    getChildWallets(1)
+    getTransactions(1)
 </script>
  
  <template>

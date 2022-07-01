@@ -13,10 +13,8 @@
     const filter_type = ref(null);
     const categoryStore = useCategoryStore()
     const walletStore = useWalletStore()
-    walletStore.getWallets({
-        all:true,
-        parentWithChildren:true
-    })
+    
+    // methods
     async function getCategories(page = 1){
         await categoryStore.getCategories({
             page,
@@ -33,7 +31,6 @@
             getCategories(1)
         }
     }
-    getCategories(1)
     function getCategoryType(type){
         let t = ''
         switch(type){
@@ -46,6 +43,13 @@
         }
         return t;
     }
+
+    walletStore.getWallets({
+        all:true,
+        parentWithChildren:true
+    })
+    getCategories(1)
+    
 </script>
 
 <template>
