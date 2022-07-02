@@ -25,8 +25,15 @@ window.Echo = new Echo({
     // cluster: import.meta.env.VITE_APP_MIX_PUSHER_APP_CLUSTER,
     wsHost: import.meta.env.VITE_APP_MIX_WEBSOCKETS_SERVER,
     wsPort: 6001,
+    wssPort: 6001,
     forceTLS: false,
-    disableStats: true
+    disableStats: true,
+    enabledTransports: ['ws', 'wss'],
+    auth: {
+        headers: {
+            Authorization: 'Bearer ' + tkn,
+        },
+    },
 });
 
 app.use(createPinia())
