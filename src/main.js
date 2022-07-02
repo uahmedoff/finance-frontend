@@ -3,6 +3,8 @@ import { createPinia } from 'pinia'
 import i18n from './utils/i18n'
 import BootstrapVue3 from 'bootstrap-vue-3'
 
+import { getItem } from '@/helpers/localStorage'
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 
@@ -19,7 +21,7 @@ import Pusher from 'pusher-js'
 
 window.Pusher = Pusher;
 
-let tkn = (localStorage.getItem('accessToken')) ? $.parseJSON(localStorage.getItem('accessToken')).token : null;
+let tkn = getItem('accessToken');
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: import.meta.env.VITE_APP_MIX_PUSHER_APP_KEY,
