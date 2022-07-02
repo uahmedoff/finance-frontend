@@ -19,6 +19,7 @@ import Pusher from 'pusher-js'
 
 window.Pusher = Pusher;
 
+let tkn = (localStorage.getItem('accessToken')) ? $.parseJSON(localStorage.getItem('accessToken')).token : null;
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: import.meta.env.VITE_APP_MIX_PUSHER_APP_KEY,
